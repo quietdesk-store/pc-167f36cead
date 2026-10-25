@@ -18,36 +18,36 @@
     "How do you get paid?": "収入の入り方は？", "I get a regular paycheck": "決まった給料がある", "My income comes in at different times": "収入が入る日がバラバラ",
     "Next payday": "次の給料日", "How often?": "どのくらいの間隔？", "Weekly": "毎週", "Every 2 weeks": "2週間ごと", "Twice a month (1st & 15th)": "月に2回（1日と15日）", "Monthly": "毎月",
     "Start": "はじめる", "Please type your balance, for example 850.": "残高を入力してください。", "Please pick your next payday.": "次の給料日を選んでください。",
-    "Safe to spend today": "今日使っていいお金", "Missed a few days?": "数日、記録を忘れた？",
+    "Available to spend today": "今日使っていいお金", "Missed a few days?": "数日、記録を忘れた？",
     "Add income": "収入を追加", "Log a spend": "支出を記録", "How much?": "いくら？", "Amount": "金額", "Log it": "記録する",
     "Food": "食費", "Home": "家", "Fun": "楽しみ", "Transport": "交通", "Health": "健康", "Other": "その他",
     "Type an amount, for example 4.50.": "金額を入力してください。", "Today so far": "今日ここまで", "Undo": "取り消し",
     "No guilt. Type the balance you see in your banking app today and you’re back on track.": "責めません。今日の銀行アプリの残高を入力すれば、元に戻れます。",
     "Balance today": "今日の残高", "Reset today": "今日から入れ直す", "Type your balance first.": "先に残高を入力してください。", "Fresh start from today.": "今日からやり直しです。",
-    "Payday passed. Did your paycheck arrive? Add it so your number is right.": "給料日が過ぎました。給料は入りましたか？ 数字を正しくするために、追加してください。",
+    "Payday passed. Did your paycheck arrive? Add it so your budget is up to date.": "給料日が過ぎました。給料は入りましたか？ 数字を正しくするために、追加してください。",
     "No bills yet. Add the ones you know about. You can add more later.": "まだ請求がありません。分かっているものを足してください。あとで増やせます。",
     "Done": "終了", "Paid": "払った", "Remove": "削除", "Add a bill": "請求を追加", "Name": "名前", "Next due date": "次の支払い日", "Add bill": "追加",
     "Please fill in the name, amount and date.": "名前・金額・日付を入れてください。",
     "Every month": "毎月", "Every week": "毎週", "Every 3 months": "3か月ごと", "Every year": "毎年", "Just once": "1回だけ",
-    "How you get paid": "収入の入り方", "A regular paycheck": "決まった給料", "Income comes in at different times": "収入が入る日がバラバラ", "Which fits you?": "どちらに近い？",
+    "How you get paid": "収入の入り方", "A regular paycheck": "決まった給料", "Income comes in at different times": "収入が入る日がバラバラ", "Which best describes you?": "どちらに近い？",
     "Only money marked Received counts toward today’s number. Invoiced and expected money is shown as “coming soon”.": "「入金済み」のお金だけが、今日の数字に入ります。請求済みや予定のお金は「もうすぐ入るお金」として別に出します。",
     "Money in": "入ってくるお金", "Nothing yet. Add a paycheck or a payment you’re waiting for.": "まだありません。給料や、待っている入金を足してください。",
     "Expected": "予定", "Invoiced (not paid yet)": "請求済み（まだ入金なし）", "Received": "入金済み", "Invoiced": "請求済みにする", "Got paid": "入金された",
     "Add money in": "入金を追加", "Date": "日付", "Status": "状態", "Received (it’s in my account)": "入金済み（口座に入った）", "Invoiced (waiting to be paid)": "請求済み（入金待ち）", "Expected (not invoiced yet)": "予定（まだ請求していない）",
     "Add": "追加", "Please type an amount and a date.": "金額と日付を入れてください。",
-    "Last payment date (optional)": "最後の支払い日（あれば。分割払いなど）", "Note (optional)": "メモ（あれば）",
+    "Final payment date (optional)": "最後の支払い日（あれば。分割払いなど）", "Note (optional)": "メモ（あれば）",
     "Currency symbol": "通貨の記号", "Language": "言語", "Days to look ahead (when income varies)": "何日先まで見るか（収入がバラバラのとき）",
-    "Your data": "あなたのデータ", "Everything stays on this device. Download a backup now and then. You can load it on another device.": "データはこの端末の中だけにあります。ときどきバックアップを保存してください。別の端末で読み込めます。",
+    "Your data": "あなたのデータ", "Your data is stored locally in this browser on this device. Download a backup now and then. You can load it on another device.": "データはこの端末の中だけにあります。ときどきバックアップを保存してください。別の端末で読み込めます。",
     "Download a backup": "バックアップを保存", "Load a backup": "バックアップを読み込む", "Backup loaded.": "バックアップを読み込みました。",
     "That file doesn’t look like a Payday Calm backup.": "このファイルは、Payday Calmのバックアップではないようです。",
     "Erase everything": "すべて消す", "Tap again to erase everything": "もう一度押すと、すべて消えます",
     "How the number works": "数字の仕組み", "Get the full app": "製品版を入手",
-    "Safe to spend today = (your money − bills coming before payday) ÷ days until payday.": "今日使っていいお金 =（手元のお金 − 給料日までの請求）÷ 給料日までの日数。",
+    "Available to spend today = (your money − bills coming before payday) ÷ days until payday.": "今日使っていいお金 =（手元のお金 − 給料日までの請求）÷ 給料日までの日数。",
     "Only money marked Received counts. Invoiced or expected money is shown as “coming soon”.": "「入金済み」のお金だけを数えます。請求済みや予定のお金は「もうすぐ入るお金」として別に出します。",
-    "When you type a new balance, older spends and income are left out, so nothing is counted twice.": "新しい残高を入れると、それより前の支出と入金は数えないので、二重にはなりません。",
-    "Bills every 3 months or every year are saved up a little each month.": "3か月・1年ごとの請求は、毎月少しずつ取り分けます。",
+    "When you enter a new balance, earlier expenses and income aren’t counted again.": "新しい残高を入れると、それより前の支出と入金は数えないので、二重にはなりません。",
+    "For quarterly and annual bills, the app includes a monthly portion in your budget.": "3か月・1年ごとの請求は、毎月少しずつ取り分けます。",
     "Could not save on this device. Download a backup in Settings.": "この端末に保存できませんでした。設定でバックアップを保存してください。",
-    "Demo limit reached. Everything you typed is still here. The full app has no limit.": "お試し版の上限です。入力したものは消えません。製品版には上限がありません。"
+    "Demo limit reached. Everything you typed is still here. The full app has no spending-entry limit.": "お試し版の上限です。入力したものは消えません。製品版には上限がありません。"
   };
   const tr = (s) => (S.lang === "ja" && JA[s]) || s;
   const tt = (en, ja) => (S.lang === "ja" ? ja : en);
@@ -87,7 +87,7 @@
     const bar = $("#demobar");
     if (!CFG.demo) { bar.hidden = true; return; }
     bar.hidden = false; bar.textContent = "";
-    bar.append(raw("span", null, tt("Free demo · " + S.spends.length + " of " + CFG.demoLimit + " spends used", "無料お試し版 · 支出 " + S.spends.length + " / " + CFG.demoLimit)));
+    bar.append(raw("span", null, tt("Free demo · " + S.spends.length + " of " + CFG.demoLimit + " spending entries used", "無料お試し版 · 支出 " + S.spends.length + " / " + CFG.demoLimit)));
     if (CFG.upgradeUrl) { const a = el("a", null, "Get the full app", { href: CFG.upgradeUrl, target: "_blank", rel: "noopener" }); bar.append(a); }
   }
 
@@ -126,16 +126,16 @@
   function todayView() {
     const t = todayStr(), r = E.compute(S, t);
     const hero = el("section", "card");
-    hero.append(el("h1", null, "Safe to spend today"));
+    hero.append(el("h1", null, "Available to spend today"));
     hero.append(raw("div", "big" + (r.status === "over" ? " over" : ""), fmt(r.safeToday)));
     hero.append(raw("p", "sub", S.mode === "variable" ? tt("Looking " + r.daysLeft + " days ahead", r.daysLeft + "日先まで見ています") : tt(r.daysLeft + (r.daysLeft === 1 ? " day" : " days") + " until payday", "給料日まであと" + r.daysLeft + "日")));
-    hero.append(raw("p", "sub", tt("Your money " + fmt(r.available) + " · set aside for bills " + fmt(r.reserved), "手元のお金 " + fmt(r.available) + " ・請求のために取り分け " + fmt(r.reserved))));
+    hero.append(raw("p", "sub", tt("Money on hand: " + fmt(r.available) + " · Set aside for bills: " + fmt(r.reserved), "手元のお金 " + fmt(r.available) + " ・請求のために取り分け " + fmt(r.reserved))));
     if (r.comingSoon > 0) hero.append(raw("p", "sub", tt("Coming soon (not counted yet): " + fmt(r.comingSoon), "もうすぐ入るお金（まだ数えていません）：" + fmt(r.comingSoon))));
-    if (r.overToday > 0) hero.append(note(tt("You went over today’s amount by " + fmt(r.overToday) + ". That’s okay. Tomorrow’s number adjusts by itself.", "今日の分を " + fmt(r.overToday) + " 使いすぎました。大丈夫です。明日の数字は自動で調整されます。")));
+    if (r.overToday > 0) hero.append(note(tt("You went over today’s amount by " + fmt(r.overToday) + ". That’s okay. Tomorrow’s amount will adjust automatically.", "今日の分を " + fmt(r.overToday) + " 使いすぎました。大丈夫です。明日の数字は自動で調整されます。")));
     if (r.status === "over") hero.append(note(tt("Bills before payday are " + fmt(r.shortfall) + " more than your money. Nothing is wrong with you. Pick one bill to move or pay later.", "給料日までの請求が、手元のお金より " + fmt(r.shortfall) + " 多いです。あなたが悪いのではありません。1つの請求を後ろにずらすか、あとで払うか決めましょう。")));
     view.append(hero);
     if (r.paydayPassed) {
-      const n = note(tr("Payday passed. Did your paycheck arrive? Add it so your number is right.")); n.append(" ", button("Add income", "link", () => { tab = "income"; render(); }));
+      const n = note(tr("Payday passed. Did your paycheck arrive? Add it so your budget is up to date.")); n.append(" ", button("Add income", "link", () => { tab = "income"; render(); }));
       view.append(n);
     }
     const lg = el("section", "card");
@@ -146,7 +146,7 @@
     const add = button("Log it", "primary", () => {
       const a = num(amt.value);
       if (isNaN(a) || a <= 0) return say(tr("Type an amount, for example 4.50."));
-      if (CFG.demo && S.spends.length >= CFG.demoLimit) return say(tr("Demo limit reached. Everything you typed is still here. The full app has no limit."));
+      if (CFG.demo && S.spends.length >= CFG.demoLimit) return say(tr("Demo limit reached. Everything you typed is still here. The full app has no spending-entry limit."));
       S.spends.push({ id: uid(), date: t, amount: a, cat }); save(); flash = ""; render();
     });
     add.style.width = "100%";
@@ -176,7 +176,7 @@
     rows.forEach(({ b, next }) => {
       const it = el("div", "item"); const l = el("div", "l");
       l.append(raw("div", null, b.name), raw("div", "sub", (next ? tt("Next: ", "次：") + next : tr("Done")) + " · " + EV[b.every]));
-      if (b.every === "quarter" || b.every === "year") l.append(raw("div", "sub", tt("Saving " + fmt(b.amount / (b.every === "year" ? 12 : 3)) + " a month", "毎月 " + fmt(b.amount / (b.every === "year" ? 12 : 3)) + " ずつ積み立て")));
+      if (b.every === "quarter" || b.every === "year") l.append(raw("div", "sub", tt("Monthly amount to budget for this bill: " + fmt(b.amount / (b.every === "year" ? 12 : 3)), "毎月 " + fmt(b.amount / (b.every === "year" ? 12 : 3)) + " ずつ積み立て")));
       const r = el("div", "r"); r.append(fmt(b.amount), el("br"));
       if (next) r.append(button("Paid", "link", () => { b.paidThrough = next; save(); render(); }));
       r.append(button("Remove", "link danger", () => { S.bills = S.bills.filter((x) => x.id !== b.id); save(); render(); }));
@@ -190,7 +190,7 @@
     const ev = select("b-ev", EV, "month");
     const due = input("b-due", "date", E.fromDays(E.toDays(t) + 7));
     const until = input("b-until", "date", "");
-    wrap.append(field("Name", name), field("Amount", amt), field("How often?", ev), field("Next due date", due), field("Last payment date (optional)", until));
+    wrap.append(field("Name", name), field("Amount", amt), field("How often?", ev), field("Next due date", due), field("Final payment date (optional)", until));
     const add = button("Add bill", "primary", () => {
       const a = num(amt.value);
       if (!name.value.trim() || isNaN(a) || a <= 0 || !due.value) return say(tr("Please fill in the name, amount and date."));
@@ -212,7 +212,7 @@
     const pdw = el("div"); pdw.style.cssText = "display:flex;flex-direction:column;gap:12px"; pdw.append(field("Next payday", pd), field("How often?", cyc)); pdw.hidden = S.mode === "variable";
     mode.addEventListener("change", () => { S.mode = mode.value; if (S.mode === "regular" && !S.payday) S.payday = t; save(); render(); });
     pd.addEventListener("change", () => { if (pd.value) { S.payday = pd.value; save(); } }); cyc.addEventListener("change", () => { S.cycle = cyc.value; save(); });
-    wrap.append(field("Which fits you?", mode), pdw); m.append(wrap);
+    wrap.append(field("Which best describes you?", mode), pdw); m.append(wrap);
     if (S.mode === "variable") { const p = el("p", "sub", "Only money marked Received counts toward today’s number. Invoiced and expected money is shown as “coming soon”."); p.style.marginTop = "10px"; m.append(p); }
     view.append(m);
     const l = el("section", "card"); l.append(el("h2", null, "Money in"));
@@ -227,7 +227,7 @@
       it.append(left, r); list.append(it);
     });
     l.append(list); view.append(l);
-    const f = el("section", "card"); f.append(el("h2", null, "Add money in"));
+    const f = el("section", "card"); f.append(el("h2", null, "Add income"));
     const w2 = el("div"); w2.style.cssText = "display:flex;flex-direction:column;gap:12px";
     const amt = input("m-amt", "text", "", { inputmode: "decimal", placeholder: tr("Amount") }); const dt = input("m-dt", "date", t); const lb = input("m-lb", "text", "", { maxlength: 40, placeholder: tr("Note (optional)") });
     const st = select("m-st", { received: tr("Received (it’s in my account)"), invoiced: tr("Invoiced (waiting to be paid)"), expected: tr("Expected (not invoiced yet)") }, "received");
@@ -241,12 +241,12 @@
     const c = el("section", "card"); c.append(el("h2", null, "Settings"));
     const w = el("div"); w.style.cssText = "display:flex;flex-direction:column;gap:12px";
     const ls = langSelect(); w.append(field("Language", ls));
-    const cur = select("c-cur", { "$": "$ Dollar", "€": "€ Euro", "£": "£ Pound", "¥": "¥ Yen", "C$": "C$", "A$": "A$" }, S.currency);
+    const cur = select("c-cur", { "$": "US dollar ($)", "€": "Euro (€)", "£": "British pound (£)", "¥": "Japanese yen (¥)", "C$": "Canadian dollar (C$)", "A$": "Australian dollar (A$)" }, S.currency);
     cur.addEventListener("change", () => { S.currency = cur.value; save(); render(); });
     w.append(field("Currency symbol", cur));
     if (S.mode === "variable") { const wd = input("c-wd", "number", S.windowDays, { min: 7, max: 60 }); wd.addEventListener("change", () => { S.windowDays = Math.min(60, Math.max(7, parseInt(wd.value, 10) || 14)); save(); render(); }); w.append(field("Days to look ahead (when income varies)", wd)); }
     c.append(w); view.append(c);
-    const b = el("section", "card"); b.append(el("h2", null, "Your data"), el("p", "sub", "Everything stays on this device. Download a backup now and then. You can load it on another device."));
+    const b = el("section", "card"); b.append(el("h2", null, "Your data"), el("p", "sub", "Your data is stored locally in this browser on this device. Download a backup now and then. You can load it on another device."));
     const row = el("div"); row.style.cssText = "display:flex;flex-direction:column;gap:10px;margin-top:12px";
     row.append(button("Download a backup", "", () => {
       const blob = new Blob([JSON.stringify(S)], { type: "application/json" }); const a = document.createElement("a");
@@ -258,7 +258,7 @@
     let armed = false; const er = button("Erase everything", "danger", () => { if (!armed) { armed = true; er.textContent = tr("Tap again to erase everything"); return; } const lang = S.lang; S = fresh(); S.lang = lang; save(); flash = ""; render(); }); row.append(er);
     b.append(row); view.append(b);
     const h = el("section", "card"); h.append(el("h2", null, "How the number works"));
-    ["Safe to spend today = (your money − bills coming before payday) ÷ days until payday.", "Only money marked Received counts. Invoiced or expected money is shown as “coming soon”.", "When you type a new balance, older spends and income are left out, so nothing is counted twice.", "Bills every 3 months or every year are saved up a little each month."].forEach((t) => h.append(el("p", "sub", t)));
+    ["Available to spend today = (your money − bills coming before payday) ÷ days until payday.", "Only money marked Received counts. Invoiced or expected money is shown as “coming soon”.", "When you enter a new balance, earlier expenses and income aren’t counted again.", "For quarterly and annual bills, the app includes a monthly portion in your budget."].forEach((t) => h.append(el("p", "sub", t)));
     h.lastChild.style.marginBottom = "0"; view.append(h);
   }
 
