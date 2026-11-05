@@ -745,8 +745,10 @@
     }
     { const br = el("div", "mrow"); br.style.cssText = "display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:18px"; br.append(raw("span", null, tt("Money you have now (cash and bank)", "いま持っているお金（現金と銀行）")), (() => { const bw = raw("b", null, ""); bw.append(tapNum(fmt(r0.available), roundC(r0.available), (v) => { S.balance = { amount: v, asOf: todayStr(), at: Date.now() }; save(); render(); }, null, "any", tt("Money you have now", "いま持っているお金"))); return bw; })()); gA.prepend(br); }
     card(tt("1. How much do you have now?", "① いま、いくら持っていますか？"), tt("Tap the underlined amount to change it. If you keep money in several places, you can list them below.", "金額を押すと直せます。現金と銀行などを分けたい時は、下に入れます。"), gA);
-    card(tt("2. Money to leave untouched", "② 使わずに残すお金"), tt("Money the app should not count as money to use.", "アプリが「使えるお金」に数えない額を決めます。"), gB);
-    card(tt("3. How the app works out your daily amount", "③ 1日に使える額の決め方"), tt("These numbers decide how far ahead the app plans, and any limits on your daily amount.", "何日先まで考えるか、1日にいくらまで使うかを決めます。"), gC);
+    card(tt("2. Money to leave untouched", "② 取っておくお金（使わずに残す額）"), tt("Money you enter here is taken out of “Money you can use today”.", "ここに入れた額は、「今日使えるお金」から引かれます。"), gB);
+    { const dcW = gC.querySelector("#c-dc") && gC.querySelector("#c-dc").parentNode; const adv = el("details", "more"); if ((S.livingCost || 0) > 0 || (S.monthlyIncome || 0) > 0 || (S.monthlySetAside || 0) > 0) adv.open = true; adv.append(raw("summary", null, tt("More settings (you can leave these alone)", "くわしい設定（ふだんは触らなくてOK）")));
+      Array.from(gC.children).forEach((ch) => { if (ch !== dcW) adv.append(ch); }); if (adv.children.length > 1) gC.append(adv); }
+    card(tt("3. Your daily limit", "③ 1日に使う上限"), tt("If you want to cap how much you spend in a day, set it here. Leave it at 0 if not.", "1日に使う額に上限を付けたいときだけ、入れます。いらなければ0のままです。"), gC);
     { const lc = el("section", "card"); lc.append(raw("h2", null, tt("4. Language, currency and picture", "④ 言葉・お金の単位・お守りの絵")), gX); view.append(lc); }
     const b = el("section", "card"); b.append(el("h2", null, "Your saved information"), el("p", "sub", "Your information stays in this app on this device. It isn’t sent anywhere. Save a copy now and then. You can load it on another device."));
     const row = el("div"); row.style.cssText = "display:flex;flex-direction:column;gap:10px;margin-top:12px";
