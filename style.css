@@ -747,3 +747,10 @@ html:root .advisor .advgo{align-self:flex-start;margin-top:2px;min-height:44px}
 .monthlyest .mev{font-size:20px;font-weight:700}
 /* 2026-11-14 コード君（本人「お願いします」で許可）：英語の「Estimated amount left to spend today」の最後が、右下の椿の上で読めなかった。ボタンと同じく、文字の後ろだけ生成りの下地を敷く。構図・文字の大きさ・高さは変えない（上下の余白0）。 */
 html:root #view .homehero .homecaption:not(.capnote){background:rgba(247,240,226,.92)!important;border-radius:999px!important;padding:0 8px!important;width:fit-content!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box!important}
+
+/* 2026-11-18 コード君（本人「お試し版の上と下に余計な黒と白があって見にくい」）：上の絵を約114pt下げていたのは「ファイル」アプリの帯を避けるため。お試し版（ふつうのブラウザ）とホーム画面から開く時は帯がないので、約100pt詰める。販売版を「ファイル」で開く時は変えない（html.tight が付く時だけ）。下の余白は、ブラウザが大きな値を返しても34ptまでにする。 */
+html.tight:root header.brand{flex:0 0 158px!important;height:158px!important;min-height:158px!important;background-position:center 14px!important;padding-top:38px!important}
+html.tight:root header.brand::before{top:14px!important}
+html.tight:root main#view{margin-top:-34px!important}
+html.tight .tabs{padding-bottom:calc(6px + min(env(safe-area-inset-bottom,0px),34px))!important}
+html.tight body{padding-bottom:calc(76px + min(env(safe-area-inset-bottom,0px),34px))!important}
