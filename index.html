@@ -3,9 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f3f1ec">
+<meta name="theme-color" content="#A40D14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Payday Calm">
+<script>
+// iPhoneのファイルプレビューが前回位置を復元しても、ブランド見出しと本文の先頭を表示する。
+(() => {
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  const reset = () => {
+    const root = document.scrollingElement;
+    if (root) root.scrollTop = 0;
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    const content = document.getElementById("view");
+    if (content) content.scrollTop = 0;
+  };
+  window.addEventListener("pageshow", () => {
+    reset();
+    requestAnimationFrame(() => requestAnimationFrame(reset));
+  });
+  window.addEventListener("DOMContentLoaded", reset, { once: true });
+  reset();
+})();
+</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Payday Calm</title>
@@ -13,11 +33,12 @@
 </head>
 <body>
 <div id="demobar" class="demobar" hidden></div>
+<header class="brand">Payday Calm</header>
 <main id="view" aria-live="polite"></main>
 <nav class="tabs" aria-label="Main">
   <button data-tab="today" class="on">Today</button>
-  <button data-tab="bills">Payments</button>
-  <button data-tab="income">Income</button>
+  <button data-tab="month">Budget</button>
+  <button data-tab="plan">Calendar</button>
   <button data-tab="settings">Settings</button>
 </nav>
 <script src="config.js"></script>
