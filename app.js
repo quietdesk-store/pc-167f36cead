@@ -195,7 +195,7 @@
   const ph = (en, ja) => tt(en, ja);
   const langSelect = () => { const s = select("lang", { ja: "日本語", en: "English" }, S.lang); s.addEventListener("change", () => { S.lang = s.value; if (S.setup === false) { S.currency = S.lang === "ja" ? "¥" : "$"; } save(); render(); }); return s; };
 
-  try { if (CFG.demo) document.documentElement.classList.add("tight"); } catch (e) {}
+  try { if (CFG.demo || (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true) document.documentElement.classList.add("tight"); } catch (e) {}
   function demoBar() {
     const bar = $("#demobar");
     if (!CFG.demo) { bar.hidden = true; return; }
