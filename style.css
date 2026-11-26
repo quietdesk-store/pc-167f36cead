@@ -754,3 +754,11 @@ html.tight:root header.brand::before{top:14px!important}
 html.tight:root main#view{margin-top:-34px!important}
 html.tight .tabs{padding-bottom:calc(6px + min(env(safe-area-inset-bottom,0px),34px))!important}
 html.tight body{padding-bottom:calc(76px + min(env(safe-area-inset-bottom,0px),34px))!important}
+
+/* 2026-11-26 コード君（本人「直して」）：設定で絵を変えると、金額の下の説明が白地に白文字で読めず、金額の後ろに白い箱が出ていた。濃い下地の上は箱をなくして明るい文字にする。生成りの下地が残る注意書きは濃い文字。黒金の絵なし（E10）は変えない。 */
+html:root[data-art]:not([data-art="E10"]) #view .homehero .homecaption:not(.capnote),
+html:root[data-art]:not([data-art="E10"]) #view .homehero .capnote{background:transparent!important;color:#fff!important}
+html:root[data-art]:not([data-art="E10"]) #view .homehero .big{background:transparent!important;color:#fff!important;padding:0!important}
+html:root[data-art]:not([data-art="E10"]) #view .homehero .big.over{background:transparent!important;color:#ffd1c6!important;padding:0!important}
+html:root[data-art]:not([data-art="E10"]) #view .homehero p.zero-explanation{color:#4D4540!important}
+html:root[data-art]:not([data-art="E10"]) #view .homehero h1::after{color:#E4C98C!important;background:linear-gradient(#E4C98C,#E4C98C) left center/calc(50% - 23px) 2px no-repeat,linear-gradient(#E4C98C,#E4C98C) right center/calc(50% - 23px) 2px no-repeat!important}
