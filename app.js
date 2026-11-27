@@ -95,7 +95,8 @@
 
   const todayStr = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
   const uid = () => Math.random().toString(36).slice(2, 10);
-  const guessLang = () => (String(navigator.language || "").toLowerCase().startsWith("ja") ? "ja" : "en");
+  const EN_ONLY = !!(window.PC_CONFIG && window.PC_CONFIG.enOnly); // 海外向け（販売ファイル・お試し版）は英語だけ（2026-11-27 本人）
+  const guessLang = () => EN_ONLY ? "en" : (String(navigator.language || "").toLowerCase().startsWith("ja") ? "ja" : "en");
 
   let saveFailed = false, loadBroken = false, userActed = false, focusFlash = false, brokenRaw = "", brokenKept = false, rawDownloaded = false, rawDlStarted = false;
   function fresh() { const lang = guessLang(); return { v: 1, setup: false, lang, currency: lang === "ja" ? "¥" : "$", mode: "regular", payday: "", cycle: "biweekly", windowDays: 14, balance: { amount: 0, asOf: "" }, income: [], spends: [], bills: [], favs: [] }; }
@@ -213,7 +214,7 @@
   /* ---------- 最初の設定（4つだけ） ---------- */
   function setupView() {
     const c = el("section", "card");
-    const top = el("div", "row"); top.append(el("h2", null, "Let’s set up (1 minute)")); const ls = langSelect(); ls.style.width = "auto"; ls.style.minWidth = "0"; top.append(ls); c.append(top);
+    const top = el("div", "row"); top.append(el("h2", null, "Let’s set up (1 minute)")); if (!EN_ONLY) { const ls = langSelect(); ls.style.width = "auto"; ls.style.minWidth = "0"; top.append(ls); } c.append(top);
     { const pr = el("div", "promise"); pr.append(raw("p", "promisebig", tt("One number: what you can spend today.", "ひとつの数字で、今日使えるお金が分かる。")), raw("p", "sub", tt("Made for people who find money math hard or tend to spend too much. Type in what you have and what you pay. The app tells you how much you can use today.", "計算が苦手な人、つい使いすぎてしまう人のためのアプリです。いま持っているお金と、払うお金を入れると、今日使っていいお金を教えてくれます。"))); c.append(pr); }
     c.append(el("p", "sub", "Four things. You can change them any time. Nothing leaves this device."));
     const f = el("div"); f.style.cssText = "display:flex;flex-direction:column;gap:12px;margin-top:12px";
@@ -303,11 +304,11 @@
       const bills = roundC(r.reserved + r.reservedNext), keep = roundC(keepSum());
       mc.append(raw("p", "sub", tt("Tap an underlined amount to change it.", "下線のある数字を押すと、直せます。")), raw("p", "sub", tt("“Money you have now” starts with the last total you entered and includes money you recorded as received, spent, or paid since then. If it differs from your actual total, update it.", "「いま持っているお金」は、最後に入れた金額に、そのあと記録した入金や支払いを足したり引いたりした金額です。実際の合計と違う時は、直してください。")));
       row(tt("Money you have now", "いま持っているお金"), fmt(r.available), "", { node: tapNum(fmt(r.available), round2c(r.available), (v) => { const b0 = todayAmt(); keepOd(true); S.balance = { amount: v, asOf: todayStr(), at: Date.now() }; save(); flash = changeMsg("bal", b0, todayAmt()); render(); }, null, "any") });
-      if ((S.accounts || []).length && S.balance && S.accountsAt && S.balance.at === S.accountsAt) { S.accounts.forEach((a) => row("　" + a.name, fmt(a.amount), "sub2", { node: tapNum(fmt(a.amount), a.amount, (v) => { const nb = round2c(r.available + v - (Number(a.amount) || 0)), at = Date.now(); a.amount = v; keepOd(true); S.balance = { amount: nb, asOf: todayStr(), at }; S.accountsAt = at; save(); render(); }, null, "any") })); row("　" + tt("(as entered " + fmtDate(S.balance.asOf) + ")", "（" + fmtDate(S.balance.asOf) + " に入れた額）"), "", "sub2"); }
+      if ((S.accounts || []).length && S.balance && S.accountsAt && S.balance.at === S.accountsAt) { S.accounts.forEach((a) => row(tt("   ", "　") + a.name, fmt(a.amount), "sub2", { node: tapNum(fmt(a.amount), a.amount, (v) => { const nb = round2c(r.available + v - (Number(a.amount) || 0)), at = Date.now(); a.amount = v; keepOd(true); S.balance = { amount: nb, asOf: todayStr(), at }; S.accountsAt = at; save(); render(); }, null, "any") })); row(tt("   ", "　") + tt("(as entered " + fmtDate(S.balance.asOf) + ")", "（" + fmtDate(S.balance.asOf) + " に入れた額）"), "", "sub2"); }
       row(varMode() ? (() => { const ed = fmtDate(E.fromDays(E.toDays(t) + r.daysLeft + (S.cushionDays == null ? 30 : S.cushionDays) - 1)); return tt("Bills due by " + ed + " + amounts for future bills", "この先、" + ed + "までに払うお金（あとで払うために準備するお金も含む）"); })() : tt("Bills due before payday (" + fmtDate(r.payday) + ") + amounts for future bills", "次にお金が入る日（" + fmtDate(r.payday) + "）の前日までに払うお金（あとで払うために準備するお金も含む）"), "−" + fmt(bills), "", { go: () => { tab = "bills"; render(); } });
       { const ks = S.keeps || [], one = ks.length <= 1 ? (ks[0] || { id: uid(), name: tt("Set aside", "取っておく"), amount: 0 }) : null;
         row(tt("Money to keep aside", "いま残しておくお金"), "−" + fmt(keep), "", one ? { node: (() => { const w = el("span"); w.append("−", keepEdit(one, !ks.length)); return w; })() } : { go: () => { tab = "settings"; render(); } });
-        ks.filter((k) => Number(k.amount) > 0).forEach((k) => { row("　" + k.name, fmt(k.amount), "sub2", { node: keepEdit(k, false) });
+        ks.filter((k) => Number(k.amount) > 0).forEach((k) => { row(tt("   ", "　") + k.name, fmt(k.amount), "sub2", { node: keepEdit(k, false) });
           const tg = Number(k.target) || 0;
           if (tg > 0) { const pct = Math.min(100, Math.floor((Number(k.amount) / tg) * 100)), done = Number(k.amount) >= tg;
             const gd = el("div", "mrow sub2 goalrow"); gd.setAttribute("data-goal", k.id);
@@ -548,11 +549,11 @@
       view.append(sc);
     }
     if (S.sample) {
-      const sn = note(tt("These are practice numbers, not yours. When you tap “Use my own numbers”, the example records are cleared.", "これは練習用の数字です。あなたの数字ではありません。「自分の金額で始める」を押すと、例の記録は消えます。")); sn.append(" ", button("Use my own numbers", "link", () => { const lang = S.lang, cur = S.currency; S = fresh(); S.lang = lang; S.currency = cur; S.noSample = true; save(); render(); }));
-      view.insertBefore(sn, view.firstChild);
+      const sn = note(CFG.demo ? tt("Practice numbers.", "練習用の数字です。") : tt("These are practice numbers, not yours. When you tap “Use my own numbers”, the example records are cleared.", "これは練習用の数字です。あなたの数字ではありません。「自分の金額で始める」を押すと、例の記録は消えます。")); sn.append(" ", button("Use my own numbers", "link", () => { const lang = S.lang, cur = S.currency; S = fresh(); S.lang = lang; S.currency = cur; S.noSample = true; save(); render(); }));
+      const demoOrder = CFG.demo ? view.querySelector(".card") : null; if (demoOrder) demoOrder.after(sn); else view.insertBefore(sn, view.firstChild);
       if (CFG.demo && !S.demoTipDone) {
         const tip = el("section", "card"); tip.append(el("h2", null, tt("Try a sample purchase", "例の買い物を、ためしてみる")));
-        tip.append(raw("p", null, tt("Enter a price in the box below to see how much you could still spend today.", "下の欄に値段を入れると、今日あといくら使えるか分かります。")), raw("p", "sub", tt("Try all the features. The demo lets you keep up to " + CFG.demoLimit + " spending entries.", "ぜんぶの機能をためせます。使ったお金は" + CFG.demoLimit + "回まで記録できます。")), button(tt("Got it, hide this", "分かった（これを消す）"), "link", () => { S.demoTipDone = true; save(); render(); }));
+        tip.append(raw("p", null, tt("Scroll down to “If you buy this” and enter a price to see how much you could still spend today.", "下の「これを買ったら」の欄に値段を入れると、今日あといくら使えるか分かります。")), raw("p", "sub", tt("Try all the features. The demo lets you keep up to " + CFG.demoLimit + " spending entries.", "ぜんぶの機能をためせます。使ったお金は" + CFG.demoLimit + "回まで記録できます。")), button(tt("Got it, hide this", "分かった（これを消す）"), "link", () => { S.demoTipDone = true; save(); render(); }));
         view.insertBefore(tip, sn.nextSibling);
       }
     }
@@ -608,7 +609,7 @@
       const incM = round2c((S.income || []).filter((i) => i.status === "received" && String(i.date).slice(0, 7) === ym).reduce((a, i) => a + (Number(i.amount) || 0), 0));
       const paidM = round2c((S.paid || []).filter((p) => String(p.date).slice(0, 7) === ym).reduce((a, p) => a + (Number(p.amount) || 0), 0));
       const sum = el("section", "card"), tg = el("div", "rtiles");
-      const tile = (lab, val, sub, cls, go) => { const d = el("div", "rtile " + (cls || "") + (go ? " tap" : "")), l = raw("span", "rtl", lab); if (sub) l.append(raw("span", "rts", sub)); d.append(l, raw("strong", "rtv", fmt(val))); if (go) { d.append(raw("span", "rtgo", "›")); d.setAttribute("role", "button"); d.tabIndex = 0; d.setAttribute("aria-label", lab + "：" + fmt(val) + "。" + tt("Tap to open", "押すと入力画面が開きます")); d.addEventListener("click", go); d.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } }); } return d; }; // 左に名前、右に金額（金額は折り返さない）
+      const tile = (lab, val, sub, cls, go) => { const d = el("div", "rtile " + (cls || "") + (go ? " tap" : "")), l = raw("span", "rtl", lab); if (sub) l.append(raw("span", "rts", sub)); d.append(l, raw("strong", "rtv", fmt(val))); if (go) { d.append(raw("span", "rtgo", "›")); d.setAttribute("role", "button"); d.tabIndex = 0; d.setAttribute("aria-label", lab + tt(": ", "：") + fmt(val) + tt(". ", "。") + tt("Tap to open", "押すと入力画面が開きます")); d.addEventListener("click", go); d.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } }); } return d; }; // 左に名前、右に金額（金額は折り返さない）
       const goRec = () => { const f = () => { const c0 = document.getElementById("rec-card"); if (c0) { c0.scrollIntoView({ behavior: "smooth", block: "start" }); const a0 = document.getElementById("l-amt"); if (a0) setTimeout(() => { try { a0.focus({ preventScroll: true }); } catch (e) {} }, 350); } }; if (monthOffset !== 0) { monthOffset = 0; render(); setTimeout(f, 50); } else f(); };
       tg.append(tile(tt("Money in", "入ったお金"), incM, tt("Marked as received", "「入った」にした分"), "", () => { tab = "income"; flash = ""; render(); }), tile(tt("Spending you recorded", "記録した支出"), total, tt(rows.length + (rows.length === 1 ? " entry" : " entries"), rows.length + "件"), "main", goRec), tile(tt("Bills paid", "払った支払い"), paidM, tt("Bills you marked Paid", "「払った」を押した支払い"), "", () => { tab = "bills"; flash = ""; render(); }));
       sum.append(tg, raw("p", "sub", tt("Tap a row to open where you enter it. Money in counts only money marked as received. Bills paid counts only payments you marked Paid.", "各項目を押すと、入力する画面に移ります。入ったお金は「入った」にした分、払った支払いは支払い予定で「払った」を押した分だけを数えます。")));
@@ -863,7 +864,7 @@
         const items = billsIn(D(first) < D(t) ? t : first, last), pm = pays.filter((p) => p.slice(0, 7) === ym), total = round2c(items.reduce((a, x) => a + x.amount, 0));
         const dt = el("details", "card why"); if (/^\d{4}-\d\d$/.test(planOpenYm || "") ? planOpenYm === ym : i === 0) dt.open = true;
         const lab = S.lang === "ja" ? md.getFullYear() + "年" + (md.getMonth() + 1) + "月" : MONS[md.getMonth()] + " " + md.getFullYear();
-        dt.append(raw("summary", null, lab + "　" + tt("Bills ", "支払い ") + fmt(total) + (pm.length ? tt(" · Paychecks " + pm.length, "・給料 " + pm.length + "回") : "")));
+        dt.append(raw("summary", null, lab + tt("  ", "　") + tt("Bills ", "支払い ") + fmt(total) + (pm.length ? tt(" · Paychecks " + pm.length, "・給料 " + pm.length + "回") : "")));
         if (pm.length >= 3 && S.cycle !== "weekly") dt.append(note(tt("3 paydays this month. Check whether you have anything to set aside.", "今月は給料が3回あります。取っておけるお金があるか、見てみましょう。")));
         const evs = items.map((x) => ({ d: x.date, t: x.name, a: fmt(x.amount), x })).concat(pm.map((p) => ({ d: p, t: tt("Payday", "給料日"), a: "" }))).sort((x, y) => x.d.localeCompare(y.d));
         if (!evs.length) dt.append(raw("p", "sub", tt("Nothing this month.", "この月に予定はありません。")));
@@ -1028,14 +1029,14 @@
     add("Income type", "収入のタイプ", S.mode === "variable" ? tt("Different each time", "入る日・額がバラバラ") : tt("Regular paycheck", "決まった給料日"));
     add("Next payday (or a past payday)", "給料日（基準の日）", S.payday || "-"); add("Pay cycle", "給料の間隔", ({ biweekly: tt("every 2 weeks", "2週間ごと"), weekly: tt("every week", "毎週"), monthly: tt("every month", "毎月"), semimonthly: tt("twice a month", "月2回") })[S.cycle] || S.cycle || "-"); add("Days to plan for", "何日分で計算するか", S.windowDays == null ? "-" : S.windowDays);
     add("Money you have now", "いま持っているお金", fmt((S.balance || {}).amount || 0) + tt(" (entered on ", "（入れた日 ") + ((S.balance || {}).asOf || "-") + tt(")", "）"));
-    add("Total money to keep aside", "いま残しておくお金の合計", fmt(S.keepAmount || 0)); (S.keeps || []).forEach((k) => L.push("  ・" + k.name + " " + fmt(k.amount)));
+    add("Total money to keep aside", "いま残しておくお金の合計", fmt(S.keepAmount || 0)); (S.keeps || []).forEach((k) => L.push(tt("  - ", "  ・") + k.name + " " + fmt(k.amount)));
     add("Usual monthly income", "ふだんの月の収入の目安", fmt(S.monthlyIncome || 0)); add("Monthly food and living costs", "毎月の食費・生活費", fmt(S.livingCost || 0)); add("Monthly set-aside", "毎月残す予定のお金", fmt(S.monthlySetAside || 0));
     add("Daily limit (0 = none)", "1日の上限（0＝なし）", fmt(S.dailyCap || 0));
     L.push(tt("Bills", "払う予定") + " (" + (S.bills || []).length + ")");
-    (S.bills || []).forEach((b) => L.push("  ・" + b.name + " " + fmt(b.amount) + " / " + (ev[b.every] || (/^m(\d+)$/.test(b.every) ? tt("every " + b.every.slice(1) + " months", b.every.slice(1) + "か月ごと") : b.every)) + tt(" / due ", " / 期日 ") + b.due + (b.paidThrough ? tt(" / marked paid up to ", " / 「払った」を押した期日 ") + b.paidThrough : "")));
-    L.push(tt("Income", "収入") + " (" + (S.income || []).length + ")"); (S.income || []).forEach((i) => L.push("  ・" + (i.label || i.name || "") + " " + fmt(i.amount) + " / " + (i.date || "") + " / " + ({ received: tr("In my account"), invoiced: tr("I asked for payment (not paid yet)"), expected: tr("Expected (I haven’t asked for payment yet)") }[i.status] || i.status || "")));
-    L.push(tt("Spending records", "使ったお金の記録") + " (" + (S.spends || []).length + ")"); (S.spends || []).forEach((x) => L.push("  ・" + x.date + " " + fmt(x.amount) + " " + tr(x.cat) + (x.memo ? " " + x.memo : "")));
-    L.push(tt("Bills marked paid", "「払った」を押した記録") + " (" + (S.paid || []).length + ")"); (S.paid || []).forEach((p) => L.push("  ・" + p.date + " " + fmt(p.amount) + tt(" for ", " 対象の期日 ") + p["for"]));
+    (S.bills || []).forEach((b) => L.push(tt("  - ", "  ・") + b.name + " " + fmt(b.amount) + " / " + (ev[b.every] || (/^m(\d+)$/.test(b.every) ? tt("every " + b.every.slice(1) + " months", b.every.slice(1) + "か月ごと") : b.every)) + tt(" / due ", " / 期日 ") + b.due + (b.paidThrough ? tt(" / marked paid up to ", " / 「払った」を押した期日 ") + b.paidThrough : "")));
+    L.push(tt("Income", "収入") + " (" + (S.income || []).length + ")"); (S.income || []).forEach((i) => L.push(tt("  - ", "  ・") + (i.label || i.name || "") + " " + fmt(i.amount) + " / " + (i.date || "") + " / " + ({ received: tr("In my account"), invoiced: tr("I asked for payment (not paid yet)"), expected: tr("Expected (I haven’t asked for payment yet)") }[i.status] || i.status || "")));
+    L.push(tt("Spending records", "使ったお金の記録") + " (" + (S.spends || []).length + ")"); (S.spends || []).forEach((x) => L.push(tt("  - ", "  ・") + x.date + " " + fmt(x.amount) + " " + tr(x.cat) + (x.memo ? " " + x.memo : "")));
+    L.push(tt("Bills marked paid", "「払った」を押した記録") + " (" + (S.paid || []).length + ")"); (S.paid || []).forEach((p) => L.push(tt("  - ", "  ・") + p.date + " " + fmt(p.amount) + tt(" for ", " 対象の期日 ") + p["for"]));
     return L.join("\n");
   }
   function settingsView() {
@@ -1044,7 +1045,7 @@
     { const w2 = el("div"); const l2 = el("label", null, tt("Lucky charm picture (top of the Today screen). Tap a picture to choose it.", "お守りの絵（今日の画面の上に出ます）。絵を押すと選べます。")); l2.id = "c-art-label"; const grid = el("div", "art-grid", null, { id: "c-art" }); grid.setAttribute("role", "group"); grid.setAttribute("aria-labelledby", "c-art-label");
       ART.forEach((a2) => { const b2 = el("button", "art-pick", null, { type: "button" }); b2.setAttribute("data-art", a2[0]); const on = a2[0] === artId(); b2.setAttribute("aria-pressed", on ? "true" : "false"); if (on) b2.classList.add("on"); b2.append(el("span", "art-pic"), raw("span", "art-name", (on ? "✓ " : "") + tt(a2[1], a2[2])), ...(S.lang === "ja" ? [] : [raw("span", "art-mean", a2[3])])); b2.addEventListener("click", () => { S.art = a2[0]; save(); render(); setTimeout(() => { const g2 = document.getElementById("c-art"); if (g2) g2.scrollIntoView({ block: "center" }); }, 50); }); grid.append(b2); });
       w2.append(l2, grid); w.append(w2); }
-    const ls = langSelect(); w.append(field("Language", ls));
+    if (!EN_ONLY) w.append(field("Language", langSelect()));
     const cur = select("c-cur", { "$": tt("US dollar ($)", "米ドル ($)"), "€": tt("Euro (€)", "ユーロ (€)"), "£": tt("British pound (£)", "英ポンド (£)"), "¥": tt("Japanese yen (¥)", "日本円 (¥)"), "C$": tt("Canadian dollar (C$)", "カナダドル (C$)"), "A$": tt("Australian dollar (A$)", "豪ドル (A$)") }, S.currency);
     cur.addEventListener("change", () => { S.currency = cur.value; save(); render(); });
     w.append(field("Currency symbol", cur));
@@ -1150,7 +1151,7 @@
     { const dcW = gC.querySelector("#c-dc") && gC.querySelector("#c-dc").parentNode; const adv = el("details", "more"); if ((S.livingCost || 0) > 0 || (S.monthlyIncome || 0) > 0 || (S.monthlySetAside || 0) > 0) adv.open = true; adv.append(raw("summary", null, tt("More settings (optional)", "くわしい設定（ふだんは触らなくてOK）")));
       Array.from(gC.children).forEach((ch) => { if (ch !== dcW) adv.append(ch); }); if (adv.children.length > 1) gC.append(adv); }
     card(tt("3. Your daily limit", "③ 1日に使う上限"), tt("To set a daily limit, enter it here. If you don’t want one, leave it at 0.", "1日に使う額に上限を付けたいときだけ、入れます。いらなければ0のままです。"), gC);
-    { const lc = el("section", "card"); lc.append(raw("h2", null, tt("4. Language, currency and picture", "④ 言葉・お金の単位・お守りの絵")), gX); view.append(lc); }
+    { const lc = el("section", "card"); lc.append(raw("h2", null, tt(EN_ONLY ? "4. Currency and picture" : "4. Language, currency and picture", "④ 言葉・お金の単位・お守りの絵")), gX); view.append(lc); }
     const b = el("section", "card"); b.append(el("h2", null, "Your saved information"), el("p", "sub", "Your information stays in this app on this device. It isn’t sent anywhere. Save a copy now and then. You can load it on another device."));
     const row = el("div"); row.style.cssText = "display:flex;flex-direction:column;gap:10px;margin-top:12px";
     row.append(button("Save a copy", "", () => {
@@ -1180,6 +1181,7 @@
   const ART = [["E10", "No picture", "絵なし", "Use the design without an illustration."], ["E2", "Treasure ship", "宝船", "A treasure ship is a New Year symbol of good fortune."], ["E4", "Koi carp", "錦鯉", "A symbol of perseverance and success."], ["F1", "Mallet and rice bales", "小槌と米俵", "A lucky mallet and rice bales are symbols of abundance."], ["H1", "Red and white cord", "水引", "Mizuhiki is a decorative paper cord used on gifts."], ["H3", "Lucky bell", "福の鈴", "A small bell whose ring is said to invite good luck."], ["H5", "Temari balls", "手まり", "Temari are decorative balls often given as gifts."], ["Q1", "Camellias", "椿", "Camellias bring color to the colder months."], ["Q9", "Paper lanterns", "提灯", "Paper lanterns add light to Japanese festivals."], ["R1", "Fireworks over the sea", "海辺の花火", "Summer festival fireworks: a bright celebration."], ["R5", "Autumn pagoda", "紅葉と五重塔", "A five-story pagoda surrounded by autumn leaves."], ["R8", "Snowy golden pavilion", "雪の楼閣と椿", "A golden pavilion in a peaceful winter scene."], ["S1b", "Waves and lightning", "藍の波と雷", "Rolling waves and lightning create a lively pattern."], ["S4", "Silver and blue rings", "銀と青の七宝", "Linked rings (shippo) stand for harmony and lasting ties."], ["S5", "Woven cords", "えんじの組紐", "Kumihimo is a traditional Japanese braided cord."]];
   const artId = () => (ART.some((a) => a[0] === S.art) ? S.art : "E10");
   function render() {
+    if (EN_ONLY && S && S.lang !== "en") S.lang = "en";
     syncCaps();
     document.documentElement.setAttribute("data-art", artId());
     if (!S.setup && !S.noSample) applySample(); taxCatchUp(); { const tk = (S.keeps || []).find((x) => x.id === "tax"); if (tk && (tk.name === "税金（自動）" || tk.name === "Tax (auto)")) tk.name = tt("Tax (auto)", "税金（自動）"); }

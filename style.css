@@ -762,3 +762,6 @@ html:root[data-art]:not([data-art="E10"]) #view .homehero .big{background:transp
 html:root[data-art]:not([data-art="E10"]) #view .homehero .big.over{background:transparent!important;color:#ffd1c6!important;padding:0!important}
 html:root[data-art]:not([data-art="E10"]) #view .homehero p.zero-explanation{color:#4D4540!important}
 html:root[data-art]:not([data-art="E10"]) #view .homehero h1::after{color:#E4C98C!important;background:linear-gradient(#E4C98C,#E4C98C) left center/calc(50% - 23px) 2px no-repeat,linear-gradient(#E4C98C,#E4C98C) right center/calc(50% - 23px) 2px no-repeat!important}
+
+/* お試し版：製品版へのリンクを読める色に（2026-11-27） */
+html:root .demobar a{color:#FFF6E2!important;text-decoration:underline}
